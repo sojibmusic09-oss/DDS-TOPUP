@@ -41,7 +41,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Bree+Serif&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- ⚡ Font Awesome 6.5.1 Full Icons Engine (Brands + Solid + Regular) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     
     <!-- AI Dependencies (Marked.js Markdown & Lucide Icons) -->
@@ -274,6 +274,156 @@
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
             margin: 0; 
+        }
+
+        /* 👑 BOTTOPUP PROFILE & RANK JOURNEY STYLES */
+        .rank-hero-card {
+            border-radius: 24px;
+            padding: 22px 18px;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 16px 36px -12px rgba(0,0,0,0.35);
+            transition: all 0.4s ease;
+        }
+        .rank-hero-card::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .rank-badge-ring {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.05));
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 2px 6px rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .rank-badge-ring img, .rank-badge-ring svg {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+        }
+        .rank-progress-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 99px;
+            background: rgba(0,0,0,0.25);
+            position: relative;
+            margin: 10px 0;
+            overflow: visible;
+        }
+        .rank-progress-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #fef08a, #f59e0b, #fbbf24);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+            position: relative;
+            transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .rank-progress-thumb {
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2.5px solid #f59e0b;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .journey-stepper-wrap {
+            position: relative;
+        }
+        .journey-line {
+            position: absolute;
+            left: 31px;
+            top: 24px;
+            bottom: 24px;
+            width: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+        .journey-item {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1.5px solid #edf2f7;
+            box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+            transition: all 0.25s ease;
+            margin-bottom: 10px;
+        }
+        .journey-item.is-current {
+            border-color: #3b82f6 !important;
+            background: #f0f7ff !important;
+            box-shadow: 0 6px 18px rgba(59,130,246,0.15);
+        }
+        .journey-item.is-unlocked:not(.is-current) {
+            border-color: #e2e8f0;
+            background: #f8fafc;
+        }
+        .journey-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #f8fafc;
+        }
+        .journey-item.is-current .journey-icon-box {
+            background: #dbeafe;
+        }
+        .journey-tag-current {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .journey-tag-locked {
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 99px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .journey-tag-completed {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
     </style>
 </head>
@@ -543,23 +693,27 @@
                 <div class="space-y-3 mb-6">
                     <a id="contact-whatsapp" href="#" class="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-[#e1e8f5] shadow-sm no-underline text-gray-800 active:scale-98 transition">
                         <div class="flex items-center gap-3">
-                            <span class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center text-lg flex-shrink-0"><i class="fab fa-whatsapp"></i></span>
+                            <span class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center text-xl flex-shrink-0 shadow-sm">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </span>
                             <div>
                                 <b class="block text-sm">WhatsApp HelpLine</b>
                                 <span class="text-xs text-gray-500">সকাল ৮টা থেকে রাত ১২টা</span>
                             </div>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
                     </a>
                     <a id="contact-telegram" href="#" class="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-[#e1e8f5] shadow-sm no-underline text-gray-800 active:scale-98 transition">
                         <div class="flex items-center gap-3">
-                            <span class="w-10 h-10 rounded-full bg-[#0088cc] text-white flex items-center justify-center text-lg flex-shrink-0"><i class="fab fa-telegram-plane"></i></span>
+                            <span class="w-10 h-10 rounded-full bg-[#0088cc] text-white flex items-center justify-center text-xl flex-shrink-0 shadow-sm">
+                                <i class="fa-brands fa-telegram"></i>
+                            </span>
                             <div>
                                 <b class="block text-sm">Telegram HelpLine</b>
                                 <span class="text-xs text-gray-500">সকাল ৮টা থেকে রাত ১২টা</span>
                             </div>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
                     </a>
                 </div>
 
@@ -892,96 +1046,188 @@
             </div>
         </section>
 
-        <section id="account-sec" class="hidden animate-fade-in pb-24 bg-[#f6f8fa] min-h-screen">
-            <div class="flex flex-col items-center pt-8 pb-4">
-                <div class="relative mb-2">
-                    <div class="w-24 h-24 rounded-full bg-gradient-to-b from-[#4DD0E1] to-[#0288D1] p-1 shadow-md">
-                        <div class="w-full h-full rounded-full bg-white p-[2px]">
-                            <div id="profile-img-container" class="w-full h-full rounded-full bg-[#00e676] overflow-hidden flex items-center justify-center">
-                                <span id="profile-initial" class="text-4xl font-normal text-black hidden"></span>
-                                <img id="acc-profile-img" src="" class="w-full h-full object-cover hidden">
-                            </div>
+        <section id="account-sec" class="hidden animate-fade-in pb-28 bg-[#f5f8fc] min-h-screen px-3 pt-4">
+            
+            <!-- 👑 1. BOTTOPUP METALLIC RANK HERO CARD -->
+            <div id="rank-hero-box" class="rank-hero-card mb-5" style="background: linear-gradient(135deg, #3d1c06 0%, #7c3f1d 50%, #4a210b 100%);">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="rank-badge-ring">
+                            <span id="hero-rank-icon" class="flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved text-3xl text-amber-400"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span id="hero-level-badge" class="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/30 bg-black/25 text-white backdrop-blur-sm mb-1">
+                                Level 1
+                            </span>
+                            <p class="text-[10px] font-bold tracking-widest text-white/70 uppercase">CURRENT RANK</p>
+                            <h2 id="hero-rank-title" class="text-2xl font-black text-white leading-tight">Bronze</h2>
                         </div>
                     </div>
                 </div>
-                
-                <h2 class="text-sm font-bold text-[#1976d2] mb-1">Hi, <span id="acc-profile-name">User</span></h2>
-                
-                <div class="flex items-center gap-1 text-black font-bold text-[11px]">
-                    <span>Available Balance : <span id="acc-profile-balance">0</span> Tk</span>
-                    <i class="fas fa-redo-alt text-[10px] cursor-pointer text-gray-800 hover:rotate-180 transition-transform"></i>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-2 gap-3 px-4 mb-6">
-                <div class="bg-white py-3 px-2 rounded-lg border border-[#2196F3] text-center shadow-sm">
-                    <h3 class="text-[#2196F3] font-bold text-base mb-1" id="acc-support-pin">...</h3>
-                    <p class="text-black font-bold text-[11px]">Support Pin</p>
-                </div>
-                
-                <div class="bg-white py-3 px-2 rounded-lg border border-[#2196F3] text-center shadow-sm">
-                    <h3 class="text-[#2196F3] font-bold text-base mb-1"><span id="acc-weekly-spent">0</span> ৳</h3>
-                    <p class="text-black font-bold text-[11px]">Weekly Spent</p>
-                </div>
-                
-                <div class="bg-white py-3 px-2 rounded-lg border border-[#2196F3] text-center shadow-sm">
-                    <h3 class="text-[#2196F3] font-bold text-base mb-1" id="acc-total-spent">0</h3>
-                    <p class="text-black font-bold text-[11px]">Total Spent</p>
-                </div>
-                
-                <div class="bg-white py-3 px-2 rounded-lg border border-[#2196F3] text-center shadow-sm">
-                    <h3 class="text-[#2196F3] font-bold text-base mb-1" id="acc-total-orders">0</h3>
-                    <p class="text-black font-bold text-[11px]">Total Order</p>
-                </div>
-            </div>
+                <p id="hero-rank-subtitle" class="text-xs text-white/80 font-medium mb-3">Start your journey from Bronze.</p>
 
-            <div class="px-4 mb-4">
-                <div class="bg-white shadow-sm">
-                    <div class="px-4 py-3 flex items-center gap-2">
-                        <i class="fas fa-folder-open text-black text-sm"></i>
-                        <h3 class="font-bold text-sm text-black">Account Information</h3>
+                <!-- Progress Tracker -->
+                <div class="flex justify-between items-center text-xs font-bold text-white/90 px-0.5">
+                    <span id="hero-rank-range">0 - 100 Tk</span>
+                    <span id="hero-rank-percent">0%</span>
+                </div>
+                <div class="rank-progress-track">
+                    <div id="hero-progress-fill" class="rank-progress-fill" style="width: 0%;">
+                        <div class="rank-progress-thumb"></div>
                     </div>
-                    <div class="border-t border-gray-100 p-4 space-y-4">
-                        <div class="bg-white rounded-lg border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] py-4 text-center">
-                            <div class="flex items-center justify-center gap-2 mb-1 text-gray-500">
-                                <i class="fas fa-redo-alt text-xs"></i>
-                                <span class="text-sm font-medium">৳<span id="acc-balance-card">0.00</span></span>
-                            </div>
-                            <p class="font-bold text-sm text-black">Available Balance</p>
+                </div>
+                <p id="hero-rank-need-text" class="text-center text-[11px] text-white/85 font-medium mb-4">
+                    Need only <b class="text-white font-bold">100 Tk</b> to unlock <b class="text-white font-bold">Silver</b>
+                </p>
+
+                <!-- Inset VIP Benefits Info Card -->
+                <div class="bg-black/25 backdrop-blur-md rounded-2xl p-3 border border-white/15 flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center flex-shrink-0 text-sm mt-0.5">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white mb-0.5">Unlock More Premium Products</h4>
+                        <p class="text-[10px] text-white/75 leading-relaxed">
+                            Top up more to increase your Total Spend and Rank, then unlock premium products, low-rate topups, verified profile icons, and future VIP benefits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 📊 2. FOUR QUICK STAT CARDS (2x2 GRID) -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <!-- Orders -->
+                <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base flex-shrink-0">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">ORDERS</span>
+                        <b class="text-base font-extrabold text-slate-800" id="acc-total-orders">0</b>
+                    </div>
+                </div>
+
+                <!-- Total Spend -->
+                <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-base flex-shrink-0">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">TOTAL SPEND</span>
+                        <b class="text-base font-extrabold text-slate-800" id="acc-total-spent-display">0 Tk</b>
+                    </div>
+                </div>
+
+                <!-- Weekly Spend -->
+                <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center text-base flex-shrink-0">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">WEEKLY SPEND</span>
+                        <b class="text-base font-extrabold text-slate-800" id="acc-weekly-spent-display">0 Tk</b>
+                    </div>
+                </div>
+
+                <!-- Rank -->
+                <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-base flex-shrink-0">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">RANK</span>
+                        <b class="text-base font-extrabold text-slate-800" id="acc-current-rank-name">Bronze</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🗺️ 3. RANK JOURNEY (TIMELINE & 8 TIERS) -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-3 px-1">
+                    <div>
+                        <span class="block text-[10px] font-extrabold text-purple-600 tracking-widest uppercase">RANK JOURNEY</span>
+                        <h3 class="text-base font-extrabold text-slate-800">Your Path</h3>
+                    </div>
+                    <span id="journey-step-counter" class="text-xs font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">
+                        1/8
+                    </span>
+                </div>
+
+                <div class="journey-stepper-wrap" id="rank-journey-list">
+                    <div class="journey-line"></div>
+                    <!-- 8 Ranks rendered dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- 👤 4. ACCOUNT / USER INFORMATION (2x2 GRID MATCHING SCREENSHOT) -->
+            <div class="mb-6">
+                <div class="mb-3 px-1">
+                    <span class="block text-[10px] font-extrabold text-purple-600 tracking-widest uppercase">ACCOUNT</span>
+                    <h3 class="text-base font-extrabold text-slate-800">User Information</h3>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <!-- Name -->
+                    <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base flex-shrink-0">
+                            <i class="fa-solid fa-user"></i>
                         </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">NAME</span>
+                            <p class="text-xs font-bold text-slate-800 truncate" id="acc-profile-name">User</p>
+                        </div>
+                    </div>
 
-                        <div class="bg-white rounded-lg border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] py-4 text-center">
-                            <div class="flex justify-center mb-2">
-                                <div class="relative text-[#007bff]">
-                                    <i class="fas fa-certificate text-4xl"></i>
-                                    <i class="fas fa-check text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-sm"></i>
-                                </div>
-                            </div>
-                            <p class="font-bold text-sm text-black">Account Verified!</p>
+                    <!-- Phone -->
+                    <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base flex-shrink-0">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">PHONE</span>
+                            <p class="text-xs font-bold text-slate-800 truncate" id="acc-phone">Not Available</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base flex-shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">EMAIL</span>
+                            <p class="text-xs font-bold text-slate-800 truncate" id="acc-email">user@email.com</p>
+                        </div>
+                    </div>
+
+                    <!-- Support Pin / User ID -->
+                    <div class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base flex-shrink-0">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="block text-[10px] font-bold text-slate-400 tracking-wider uppercase">USER ID</span>
+                            <p class="text-xs font-bold text-slate-800 truncate" id="acc-support-pin">...</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="px-4 mb-6">
-                <div class="bg-white shadow-sm">
-                    <div class="px-4 py-3 flex items-center gap-2">
-                        <i class="fas fa-info-circle text-black text-sm"></i>
-                        <h3 class="font-bold text-sm text-black">User Information</h3>
-                    </div>
-                    <div class="border-t border-gray-100 p-4">
-                        <p class="text-[11px] font-bold text-black mb-2">email : <span id="acc-email" class="font-bold text-black">user@email.com</span></p>
-                        <p class="text-[11px] font-bold text-black">Phone : <span id="acc-phone" class="font-bold text-black">Not Available</span></p>
-                    </div>
-                </div>
-                
-                <div class="mt-4">
-                     <button onclick="handleLogout()" class="w-full p-3 bg-white shadow-sm flex items-center justify-center gap-2 hover:bg-red-50 transition duration-300">
-                        <i class="fas fa-sign-out-alt text-red-500"></i>
-                        <span class="font-bold text-sm text-red-500">Log Out</span>
-                     </button>
-                </div>
+            <!-- 🚪 5. LOG OUT BUTTON -->
+            <div class="mb-4">
+                <button onclick="handleLogout()" class="w-full p-3.5 bg-white border border-rose-100 rounded-2xl shadow-sm flex items-center justify-center gap-2 hover:bg-rose-50 active:scale-98 transition duration-200">
+                    <i class="fa-solid fa-right-from-bracket text-rose-500"></i>
+                    <span class="font-bold text-xs text-rose-500 uppercase tracking-wider">Log Out</span>
+                </button>
             </div>
+
+            <!-- Hidden Element for Stats Compatibility -->
+            <span id="acc-profile-balance" class="hidden">0</span>
+            <span id="acc-total-spent" class="hidden">0</span>
+            <span id="acc-weekly-spent" class="hidden">0</span>
         </section>
         </main>
     
@@ -2537,15 +2783,228 @@
         });
     }
 
-    function calculateUserStats(uid) {
-        const totalOrdersEl = document.getElementById('acc-total-orders');
-        const totalSpentEl = document.getElementById('acc-total-spent');
-        const weeklySpentEl = document.getElementById('acc-weekly-spent');
+    // =========================================================================
+    // 👑 BOTTOPUP TIER DEFINITIONS (8 RANKS FROM BRONZE TO GRANDMASTER)
+    // =========================================================================
+    const BOTTOPUP_RANKS = [
+        {
+            level: 1,
+            id: 'bronze',
+            name: 'Bronze',
+            min: 0,
+            max: 100,
+            rangeText: '0 - 100 Tk',
+            subtitle: 'Start your journey from Bronze.',
+            theme: 'linear-gradient(135deg, #3d1c06 0%, #7c3f1d 50%, #4a210b 100%)',
+            iconColor: '#f59e0b',
+            iconFa: 'fa-solid fa-shield-halved'
+        },
+        {
+            level: 2,
+            id: 'silver',
+            name: 'Silver',
+            min: 101,
+            max: 1000,
+            rangeText: '101 - 1,000 Tk',
+            subtitle: 'Keep recharging to unlock Gold rank.',
+            theme: 'linear-gradient(135deg, #1e293b 0%, #475569 50%, #0f172a 100%)',
+            iconColor: '#94a3b8',
+            iconFa: 'fa-solid fa-shield-cat'
+        },
+        {
+            level: 3,
+            id: 'gold',
+            name: 'Gold',
+            min: 1001,
+            max: 5000,
+            rangeText: '1,001 - 5,000 Tk',
+            subtitle: 'Recharge more to reach Platinum tier.',
+            theme: 'linear-gradient(135deg, #78350f 0%, #d97706 50%, #451a03 100%)',
+            iconColor: '#fbbf24',
+            iconFa: 'fa-solid fa-shield-crown'
+        },
+        {
+            level: 4,
+            id: 'platinum',
+            name: 'Platinum',
+            min: 5001,
+            max: 10000,
+            rangeText: '5,001 - 10,000 Tk',
+            subtitle: 'Platinum rank member. Special perks unlocked.',
+            theme: 'linear-gradient(135deg, #0f766e 0%, #06b6d4 50%, #134e4a 100%)',
+            iconColor: '#22d3ee',
+            iconFa: 'fa-solid fa-shield-virus'
+        },
+        {
+            level: 5,
+            id: 'diamond',
+            name: 'Diamond',
+            min: 10001,
+            max: 25000,
+            rangeText: '10,001 - 25,000 Tk',
+            subtitle: 'Elite Diamond player. VIP low rates active.',
+            theme: 'linear-gradient(135deg, #581c87 0%, #a855f7 50%, #3b0764 100%)',
+            iconColor: '#c084fc',
+            iconFa: 'fa-solid fa-gem'
+        },
+        {
+            level: 6,
+            id: 'heroic',
+            name: 'Heroic',
+            min: 25001,
+            max: 50000,
+            rangeText: '25,001 - 50,000 Tk',
+            subtitle: 'Heroic tier reached! Maximum priority orders.',
+            theme: 'linear-gradient(135deg, #881337 0%, #e11d48 50%, #4c0519 100%)',
+            iconColor: '#f43f5e',
+            iconFa: 'fa-solid fa-fire-flame-curved'
+        },
+        {
+            level: 7,
+            id: 'master',
+            name: 'Master',
+            min: 50001,
+            max: 100000,
+            rangeText: '50,001 - 100,000 Tk',
+            subtitle: 'Master tier unlocked! Exclusive VIP privileges.',
+            theme: 'linear-gradient(135deg, #9a3412 0%, #ea580c 50%, #7c2d12 100%)',
+            iconColor: '#fb923c',
+            iconFa: 'fa-solid fa-crown'
+        },
+        {
+            level: 8,
+            id: 'grandmaster',
+            name: 'Grand Master',
+            min: 100001,
+            max: Infinity,
+            rangeText: '100,000+ Tk',
+            subtitle: 'God-tier Grandmaster! Maximum lifetime VIP.',
+            theme: 'linear-gradient(135deg, #713f12 0%, #eab308 50%, #854d0e 100%)',
+            iconColor: '#facc15',
+            iconFa: 'fa-solid fa-ranking-star'
+        }
+    ];
 
-        if(totalOrdersEl) totalOrdersEl.innerText = "0";
-        if(totalSpentEl) totalSpentEl.innerText = "0";
-        if(weeklySpentEl) weeklySpentEl.innerText = "0";
-        
+    // ⚡ BOTTOPUP রিয়েল-টাইম র‍্যাঙ্ক ক্যালকুলেশন ও রেন্ডার ইঞ্জিন
+    function updateBotTopupRankUI(totalSpent, totalOrders, weeklySpent) {
+        // ১. ৪টি স্ট্যাট কার্ড আপডেট
+        const ordersEl = document.getElementById('acc-total-orders');
+        if (ordersEl) ordersEl.innerText = totalOrders;
+        const totalSpentEl = document.getElementById('acc-total-spent-display');
+        if (totalSpentEl) totalSpentEl.innerText = `${totalSpent} Tk`;
+        const weeklySpentEl = document.getElementById('acc-weekly-spent-display');
+        if (weeklySpentEl) weeklySpentEl.innerText = `${weeklySpent} Tk`;
+
+        // ২. বর্তমান র‍্যাঙ্ক টিয়ার নির্ধারণ
+        let currentRank = BOTTOPUP_RANKS[0];
+        let currentRankIndex = 0;
+
+        for (let i = BOTTOPUP_RANKS.length - 1; i >= 0; i--) {
+            if (totalSpent >= BOTTOPUP_RANKS[i].min) {
+                currentRank = BOTTOPUP_RANKS[i];
+                currentRankIndex = i;
+                break;
+            }
+        }
+
+        const currentRankNameEl = document.getElementById('acc-current-rank-name');
+        if (currentRankNameEl) currentRankNameEl.innerText = currentRank.name;
+
+        // ৩. মেটালিক হিরো কার্ডের আপডেট
+        const heroBox = document.getElementById('rank-hero-box');
+        if (heroBox) heroBox.style.background = currentRank.theme;
+
+        const heroLevelBadge = document.getElementById('hero-level-badge');
+        if (heroLevelBadge) heroLevelBadge.innerText = `Level ${currentRank.level}`;
+
+        const heroRankTitle = document.getElementById('hero-rank-title');
+        if (heroRankTitle) heroRankTitle.innerText = currentRank.name;
+
+        const heroRankSubtitle = document.getElementById('hero-rank-subtitle');
+        if (heroRankSubtitle) heroRankSubtitle.innerText = currentRank.subtitle;
+
+        const heroRankIcon = document.getElementById('hero-rank-icon');
+        if (heroRankIcon) {
+            heroRankIcon.innerHTML = `<i class="${currentRank.iconFa} text-3xl" style="color: ${currentRank.iconColor}"></i>`;
+        }
+
+        const heroRankRange = document.getElementById('hero-rank-range');
+        if (heroRankRange) heroRankRange.innerText = currentRank.rangeText;
+
+        // ৪. প্রোগ্রেস পার্সেন্টেজ ও পরবর্তী র‍্যাঙ্কের দূরত্ব হিসাব
+        let percent = 0;
+        let needTextHtml = "";
+
+        if (currentRank.max === Infinity) {
+            percent = 100;
+            needTextHtml = `<b class="text-white">Maximum rank achieved! 👑</b>`;
+        } else {
+            const rangeSpan = currentRank.max - currentRank.min;
+            const progressInTier = Math.max(0, totalSpent - currentRank.min);
+            percent = Math.min(100, Math.max(0, Math.round((progressInTier / rangeSpan) * 100)));
+            const needTk = (currentRank.max + 1) - totalSpent;
+            const nextRank = BOTTOPUP_RANKS[currentRankIndex + 1];
+            needTextHtml = `Need only <b class="text-white">${needTk} Tk</b> to unlock <b class="text-white">${nextRank ? nextRank.name : ''}</b>`;
+        }
+
+        const heroRankPercent = document.getElementById('hero-rank-percent');
+        if (heroRankPercent) heroRankPercent.innerText = `${percent}%`;
+
+        const heroProgressFill = document.getElementById('hero-progress-fill');
+        if (heroProgressFill) heroProgressFill.style.width = `${percent}%`;
+
+        const heroRankNeedText = document.getElementById('hero-rank-need-text');
+        if (heroRankNeedText) heroRankNeedText.innerHTML = needTextHtml;
+
+        const journeyCounter = document.getElementById('journey-step-counter');
+        if (journeyCounter) journeyCounter.innerText = `${currentRank.level}/8`;
+
+        // ৫. Rank Journey (৮টি র‍্যাঙ্কের টাইমলাইন রেন্ডার)
+        const journeyList = document.getElementById('rank-journey-list');
+        if (journeyList) {
+            let html = `<div class="journey-line"></div>`;
+
+            BOTTOPUP_RANKS.forEach((rank, idx) => {
+                const isCurrent = idx === currentRankIndex;
+                const isUnlocked = idx < currentRankIndex;
+
+                let stateClass = "";
+                let tagHtml = "";
+
+                if (isCurrent) {
+                    stateClass = "is-current";
+                    tagHtml = `<span class="journey-tag-current"><i class="fa-solid fa-check"></i> Current</span>`;
+                } else if (isUnlocked) {
+                    stateClass = "is-unlocked";
+                    tagHtml = `<span class="journey-tag-completed"><i class="fa-solid fa-check-double"></i> Unlocked</span>`;
+                } else {
+                    tagHtml = `<span class="journey-tag-locked"><i class="fa-solid fa-lock"></i> Locked</span>`;
+                }
+
+                html += `
+                    <div class="journey-item ${stateClass}">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="journey-icon-box">
+                                <i class="${rank.iconFa} text-xl" style="color: ${rank.iconColor}"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-extrabold text-slate-800 leading-tight">${rank.name}</h4>
+                                <span class="text-[11px] font-medium text-slate-400">${rank.rangeText}</span>
+                            </div>
+                        </div>
+                        <div>
+                            ${tagHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            journeyList.innerHTML = html;
+        }
+    }
+
+    // অর্ডার থেকে টোটাল স্পেন্ড ও উইকলি স্পেন্ড হিসাব
+    function calculateUserStats(uid) {
         db.collection('orders').where('userId', '==', uid).get().then((snapshot) => {
             let totalOrders = 0;
             let totalSpent = 0;
@@ -2557,13 +3016,12 @@
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 totalOrders++;
-                const status = data.status ? data.status.toLowerCase() : '';
+                const status = (data.status || '').toLowerCase();
                 
-                if (status === 'success' || status === 'complete' || status === 'completed' || status === 'pending') {
+                if (['success', 'complete', 'completed'].includes(status)) {
                     const price = parseInt(data.price || 0);
                     totalSpent += price;
 
-                    // Calculate Weekly Spent (Real Info)
                     if (data.date) {
                         const orderDate = data.date.toDate ? data.date.toDate() : new Date(data.date);
                         if (orderDate >= oneWeekAgo) {
@@ -2573,12 +3031,12 @@
                 }
             });
 
-            if(totalOrdersEl) totalOrdersEl.innerText = totalOrders;
-            if(totalSpentEl) totalSpentEl.innerText = totalSpent;
-            if(weeklySpentEl) weeklySpentEl.innerText = weeklySpent;
+            // BotTopUp র‍্যাঙ্ক সিস্টেম আপডেট
+            updateBotTopupRankUI(totalSpent, totalOrders, weeklySpent);
 
         }).catch(err => {
             console.error("Stats Error:", err);
+            updateBotTopupRankUI(0, 0, 0);
         });
     }
 
