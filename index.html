@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -588,9 +587,9 @@
         </section>
 
         <section id="topup-sec" class="hidden animate-fade-in pb-10 bg-slate-50">
-            <div class="bg-white p-3 rounded-xl shadow-sm flex items-center gap-4 mb-4 border border-gray-100 mx-2 mt-2">
-                <button onclick="if(window.history.length > 1){ window.history.back(); } else { showSec('home'); }" class="text-gray-600 hover:text-sky-500 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 absolute top-4 right-4 cursor-pointer">
-                    <i class="fas fa-times text-lg"></i>
+            <div class="bg-white p-3 rounded-xl shadow-sm flex items-center gap-4 mb-4 border border-gray-100 mx-2 mt-2 relative">
+                <button type="button" onclick="closeTopupModalSafe(event)" class="text-gray-400 hover:text-red-500 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 absolute top-3 right-3 cursor-pointer transition shadow-xs z-20">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
                 <img id="topup-game-img" src="" class="w-16 h-16 rounded-xl object-cover shadow-sm">
                 <div>
@@ -689,41 +688,57 @@
             <span id="total-price" class="hidden">0</span>
         </section>
 
-        <section id="addmoney-sec" class="hidden animate-fade-in pb-20 bg-[#f8fafc] min-h-screen">
+        <section id="addmoney-sec" class="hidden animate-fade-in pb-24 bg-[#f8fafc] min-h-screen">
             
+            <!-- STEP 1: AMOUNT INPUT & TUTORIAL -->
             <div id="am-step-1" class="step-transition">
-                <div class="bg-white p-6 shadow-sm border-b border-gray-100 mb-6">
-                    <h2 class="font-bold text-lg text-gray-800 uppercase tracking-wide">Add Money</h2>
+                <div class="bg-white p-5 shadow-sm border-b border-gray-100 mb-5 flex items-center justify-between">
+                    <h2 class="font-bold text-base text-gray-800 uppercase tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-wallet text-sky-600"></i> Add Money
+                    </h2>
+                    <span class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-600 rounded-full border border-sky-100">
+                        ব্যালেন্স: ৳<span id="am-current-balance">0</span>
+                    </span>
                 </div>
 
                 <div class="px-4">
-                    <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-200 mb-6 text-center">
-                        <label class="block text-gray-500 text-sm font-bold mb-4 uppercase tracking-wider">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6 text-center">
+                        <label class="block text-gray-500 text-xs font-bold mb-3 uppercase tracking-wider">
                             Enter Amount to Deposit
                         </label>
                         
-                        <div class="relative mb-6 max-w-[200px] mx-auto">
+                        <div class="relative mb-5 max-w-[220px] mx-auto">
                             <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-gray-400">৳</span>
-                            <input type="number" id="new-amount-input" value="100" 
-                                   class="w-full border-b-2 border-gray-300 py-2 pl-8 pr-2 text-center text-3xl font-bold text-gray-800 focus:outline-none focus:border-red-500 transition-colors bg-transparent" 
+                            <input type="number" id="new-amount-input" value="100" min="10"
+                                   class="w-full border-b-2 border-gray-300 py-2 pl-9 pr-2 text-center text-3xl font-extrabold text-gray-800 focus:outline-none focus:border-sky-500 transition-colors bg-transparent" 
                                    placeholder="100">
                         </div>
 
+                        <!-- Quick Amount Badges -->
+                        <div class="grid grid-cols-4 gap-2 mb-5">
+                            <button type="button" onclick="document.getElementById('new-amount-input').value=50" class="py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-gray-700 hover:border-sky-500 hover:bg-sky-50 transition">৳50</button>
+                            <button type="button" onclick="document.getElementById('new-amount-input').value=100" class="py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-gray-700 hover:border-sky-500 hover:bg-sky-50 transition">৳100</button>
+                            <button type="button" onclick="document.getElementById('new-amount-input').value=300" class="py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-gray-700 hover:border-sky-500 hover:bg-sky-50 transition">৳300</button>
+                            <button type="button" onclick="document.getElementById('new-amount-input').value=500" class="py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-gray-700 hover:border-sky-500 hover:bg-sky-50 transition">৳500</button>
+                        </div>
+
                         <button onclick="goToMethodStep()" 
-                                class="w-full bg-sky-600 text-white font-bold py-3.5 rounded shadow-lg hover:bg-sky-700 active:scale-95 transition-all text-sm uppercase tracking-wide">
-                            PROCEED TO PAYMENT
+                                class="w-full text-white font-bold py-3.5 rounded-xl shadow-lg active:scale-95 transition-all text-sm uppercase tracking-wide flex items-center justify-center gap-2"
+                                style="background: var(--g);">
+                            <span>PROCEED TO PAYMENT</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
                     </div>
 
                     <div class="mt-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fab fa-youtube text-red-600"></i>
-                            <h3 class="font-bold text-gray-700 text-sm">Tutorial: How to Add Money</h3>
+                        <div class="flex items-center gap-2 mb-2 text-gray-700 font-bold text-xs">
+                            <i class="fa-brands fa-youtube text-red-600 text-base"></i>
+                            <span>Tutorial: How to Add Money</span>
                         </div>
-                        <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 p-1">
-                            <div class="relative w-full aspect-video">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200 p-1.5">
+                            <div class="relative w-full aspect-video rounded-xl overflow-hidden">
                                 <iframe id="new-tutorial-video" 
-                                        class="w-full h-full rounded"
+                                        class="w-full h-full"
                                         src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
                                         title="How to Add Money"
                                         frameborder="0" 
@@ -736,139 +751,116 @@
                 </div>
             </div>
 
-            <div id="am-step-2" class="hidden step-transition h-screen flex flex-col bg-[#f0f4f7]">
-                <div class="bg-white p-3 flex items-center justify-between shadow-sm sticky top-0 z-10">
-                    <button onclick="backToAmountStep()" class="text-gray-500 w-8 h-8 flex items-center justify-center">
-                         <i class="fas fa-arrow-left text-lg"></i>
-                    </button>
-                    <div class="text-right">
-                        <img src="" id="step2-logo" class="h-8 object-contain inline-block">
-                    </div>
-                    <button onclick="showSec('home')" class="text-gray-400">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <div class="flex-1 flex flex-col justify-center items-center px-6">
-                    <div class="bg-white rounded-full w-32 h-32 flex items-center justify-center shadow-sm border border-gray-100 mb-6 p-4">
-                        <img src="" id="step2-center-logo" class="w-full object-contain">
-                    </div>
-                    
-                    <h2 class="text-gray-600 font-medium mb-8 text-lg">Auto Pay</h2>
-
-                    <div class="w-full bg-[#003399] text-white py-2.5 text-center text-sm font-bold rounded-t-lg mb-0 shadow-md">
-                        মোবাইল ব্যাংকিং
-                    </div>
-                    
-                    <div class="w-full grid grid-cols-2 gap-4 bg-white p-4 rounded-b-lg shadow-sm border border-gray-200 border-t-0">
-                        <button onclick="goToPaymentPage('bKash', 'theme-bkash', 'https://i.ibb.co/TBwjc0qy/pay-logo-1764254679.png')" 
-                                class="bg-white border border-gray-200 rounded-lg p-2 flex items-center justify-center hover:border-pink-500 hover:shadow-md transition h-16">
-                            <img src="https://i.ibb.co/TBwjc0qy/pay-logo-1764254679.png" class="h-8 object-contain">
-                        </button>
-                        
-                        <button onclick="goToPaymentPage('Nagad', 'theme-nagad', 'https://i.ibb.co/YFf435ms/Nagad.png')" 
-                                class="bg-white border border-gray-200 rounded-lg p-2 flex items-center justify-center hover:border-orange-500 hover:shadow-md transition h-16">
-                            <img src="https://i.ibb.co/YFf435ms/Nagad.png" class="h-6 object-contain">
-                        </button>
-
-                        <button onclick="goToPaymentPage('Rocket', 'theme-rocket', 'https://i.ibb.co/W4TXLGhm/file-000000005c2081fabc9814dd0bac2a9d.png')" 
-                                class="bg-white border border-gray-200 rounded-lg p-2 flex items-center justify-center hover:border-purple-500 hover:shadow-md transition h-16">
-                            <img src="https://i.ibb.co/W4TXLGhm/file-000000005c2081fabc9814dd0bac2a9d.png" class="h-6 object-contain">
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="am-step-3" class="hidden step-transition min-h-screen bg-[#f0f4f7] relative pb-24">
+            <!-- STEP 2: PHP CHECKOUT STYLE PAYMENT PAGE (DIRECTLY MATCHING SCRIPT) -->
+            <div id="am-step-2" class="hidden step-transition px-3 pt-3">
                 
-                <div class="bg-white p-3 shadow-sm flex justify-between items-center sticky top-0 z-20">
-                    <button onclick="backToMethodStep()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
-                        <i class="fas fa-arrow-left"></i>
+                <!-- TOP HEADER BAR WITH LOGO & CLOSE -->
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between mb-4">
+                    <button onclick="backToAmountStep()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-gray-700 flex items-center justify-center text-sm transition">
+                        <i class="fa-solid fa-arrow-left"></i>
                     </button>
-                    <div class="flex items-center gap-2">
-                        <span class="bg-gray-100 px-2 py-0.5 rounded text-xs font-bold text-gray-500">English <i class="fas fa-caret-down ml-1"></i></span>
-                        <button onclick="showSec('home')" class="text-gray-400 text-lg"><i class="fas fa-times"></i></button>
+                    <div class="h-8 max-w-[130px] flex items-center justify-center overflow-hidden">
+                        <img src="" id="step2-logo" class="h-full w-auto object-contain" alt="Logo">
+                    </div>
+                    <button onclick="showSec('home')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-gray-400 hover:text-red-500 flex items-center justify-center text-sm transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- TOTAL PAYABLE AMOUNT CARD -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm mb-5 text-center border-t-4 border-sky-600 border-x border-b border-gray-100">
+                    <p class="text-gray-400 mb-1 text-xs uppercase font-extrabold tracking-wider">Total Payable Amount</p>
+                    <h1 class="text-3xl font-extrabold text-sky-600 my-1 font-mono">
+                        ৳<span id="pay-total-display">0</span>
+                    </h1>
+                    <div class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1 rounded-full text-xs text-gray-600 font-semibold mt-1">
+                        <span id="pay-game-badge">Wallet</span> • <span id="pay-pack-badge">Balance Add Request</span>
                     </div>
                 </div>
 
-                <div class="text-center py-6">
-                    <img id="pay-method-logo" src="" class="h-12 mx-auto object-contain drop-shadow-sm">
+                <!-- PAYMENT METHOD SELECTOR -->
+                <h3 class="font-bold text-gray-700 mb-3 text-xs uppercase tracking-wider flex items-center gap-2 px-1">
+                    <i class="fa-solid fa-wallet text-sky-600"></i> Select Payment Method
+                </h3>
+                
+                <div class="grid grid-cols-3 gap-2.5 mb-5" id="payment-methods-grid">
+                    
+                    <!-- bKash -->
+                    <label class="cursor-pointer group select-none">
+                        <input type="radio" name="checkout_payment_method" value="bKash" class="peer sr-only" onchange="selectCheckoutMethod('bKash')">
+                        <div class="border-2 border-gray-100 bg-white rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 peer-checked:border-sky-600 peer-checked:bg-sky-50/60 transition relative overflow-hidden shadow-sm h-20">
+                            <img src="https://i.ibb.co/TBwjc0qy/pay-logo-1764254679.png" class="h-7 object-contain drop-shadow-sm" alt="bKash">
+                            <span class="text-[11px] font-bold text-gray-700 mt-1">bKash</span>
+                            <div class="absolute top-1.5 right-1.5 text-sky-600 opacity-0 peer-checked:opacity-100 transition text-sm">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Nagad -->
+                    <label class="cursor-pointer group select-none">
+                        <input type="radio" name="checkout_payment_method" value="Nagad" class="peer sr-only" onchange="selectCheckoutMethod('Nagad')">
+                        <div class="border-2 border-gray-100 bg-white rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 peer-checked:border-sky-600 peer-checked:bg-sky-50/60 transition relative overflow-hidden shadow-sm h-20">
+                            <img src="https://i.ibb.co/YFf435ms/Nagad.png" class="h-6 object-contain drop-shadow-sm" alt="Nagad">
+                            <span class="text-[11px] font-bold text-gray-700 mt-1">Nagad</span>
+                            <div class="absolute top-1.5 right-1.5 text-sky-600 opacity-0 peer-checked:opacity-100 transition text-sm">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Rocket -->
+                    <label class="cursor-pointer group select-none">
+                        <input type="radio" name="checkout_payment_method" value="Rocket" class="peer sr-only" onchange="selectCheckoutMethod('Rocket')">
+                        <div class="border-2 border-gray-100 bg-white rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 peer-checked:border-sky-600 peer-checked:bg-sky-50/60 transition relative overflow-hidden shadow-sm h-20">
+                            <img src="https://i.ibb.co/W4TXLGhm/file-000000005c2081fabc9814dd0bac2a9d.png" class="h-6 object-contain drop-shadow-sm" alt="Rocket">
+                            <span class="text-[11px] font-bold text-gray-700 mt-1">Rocket</span>
+                            <div class="absolute top-1.5 right-1.5 text-sky-600 opacity-0 peer-checked:opacity-100 transition text-sm">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                    </label>
                 </div>
 
-                <div class="px-4">
-                    <div class="bg-white rounded-xl p-4 flex items-center gap-4 mb-4 shadow-sm">
-                        <div class="w-12 h-12 rounded-full border border-gray-100 p-1">
-                            <img id="pay-site-logo-small" src="" class="w-full h-full rounded-full object-cover">
+                <!-- DETAILS & SUBMIT CARD (PHP STYLE) -->
+                <div id="checkoutDetailsBox" class="hidden bg-white p-5 rounded-2xl shadow-md border border-sky-100 animate-fade-in mb-6">
+                    
+                    <div class="text-center mb-5">
+                        <p class="text-[11px] text-gray-400 mb-1 font-bold uppercase tracking-wider">Send Money To (<span id="payMethodSelectedTitle" class="text-sky-600">bKash</span>)</p>
+                        
+                        <div class="flex items-center justify-between gap-3 bg-slate-50 px-4 py-3 rounded-xl border border-gray-200">
+                            <span id="checkoutPayNumber" class="font-mono font-bold text-lg md:text-xl text-gray-800 tracking-wider">Loading...</span>
+                            <button type="button" onclick="copyCheckoutNumber()" class="text-sky-600 hover:text-sky-800 bg-white px-2.5 py-1.5 rounded-lg border border-gray-200 shadow-xs flex items-center gap-1 text-xs font-bold transition">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-orange-600 mt-2 font-medium bg-orange-50 inline-block px-3 py-1 rounded-full border border-orange-100">
+                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> শুধুমাত্র <b>Send Money</b> করবেন। ক্যাশইন বা পেমেন্ট গ্রহণযোগ্য নয়।
+                        </p>
+                    </div>
+
+                    <div class="space-y-3.5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Your Wallet Number (যে নম্বর থেকে পাঠিয়েছেন)</label>
+                            <input type="tel" id="checkout-sender-number" placeholder="e.g. 017xxxxxxxx" class="w-full border border-gray-200 p-3 rounded-xl focus:outline-none focus:border-sky-500 bg-slate-50 text-sm font-semibold text-gray-800">
                         </div>
                         <div>
-                            <p class="text-sm text-gray-800 font-bold">Auto Pay</p>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Transaction ID (TrxID) *</label>
+                            <input type="text" id="checkout-trx-id" placeholder="e.g. BL9X2K4S" class="w-full border border-gray-200 p-3 rounded-xl focus:outline-none focus:border-sky-500 bg-slate-50 text-sm font-mono font-bold text-gray-800 uppercase tracking-wider">
                         </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl p-4 mb-4 shadow-sm flex items-center gap-2">
-                        <span class="text-lg font-bold text-gray-700">৳</span>
-                        <span id="pay-amount-display" class="text-xl font-bold text-gray-800">100</span>
-                    </div>
-
-                    <div id="payment-theme-card" class="rounded-xl shadow-lg overflow-hidden text-white mb-6 relative transition-colors duration-300">
-                        
-                        <div class="p-5 text-center">
-                            <h3 class="font-bold text-lg mb-4 drop-shadow-md">ট্রানজেকশন আইডি দিন</h3>
-                            <input type="text" id="pay-trx-input" 
-                                   class="w-full bg-white text-gray-800 text-center py-3 rounded text-sm font-bold shadow-inner focus:outline-none placeholder-gray-400" 
-                                   placeholder="ট্রানজেকশন আইডি দিন">
-                        </div>
-
-                        <div class="bg-black/10 p-5 text-sm space-y-4 backdrop-blur-sm border-t border-white/20">
-                            
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p>*247# ডায়াল করে আপনার <span class="method-name font-bold">bKash</span> মোবাইল মেনুতে যান অথবা <span class="method-name font-bold">bKash</span> অ্যাপে যান।</p>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p>"Send Money" -এ ক্লিক করুন।</p>
-                            </div>
-
-                            <div class="flex flex-col gap-1 pl-3">
-                                <p>• প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন:</p>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <span id="pay-admin-number" class="text-2xl font-bold text-yellow-300 tracking-wider">Loading...</span>
-                                    <button onclick="copyPayNumber()" class="bg-black/30 hover:bg-black/50 text-white px-2 py-1 rounded text-[10px] font-bold transition flex items-center gap-1 border border-white/30">
-                                        <i class="far fa-copy"></i> COPY
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p>টাকার পরিমাণ: <span id="pay-amount-text" class="font-bold text-yellow-300">100</span></p>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p>নিশ্চিত করতে এখন আপনার <span class="method-name font-bold">bKash</span> মোবাইল মেনু পিন লিখুন।</p>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p>সবকিছু ঠিক থাকলে, আপনি <span class="method-name font-bold">bKash</span> থেকে একটি নিশ্চিতকরণ বার্তা পাবেন।</p>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <span class="mt-1">•</span>
-                                <p class="font-bold text-yellow-200">এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</p>
-                            </div>
-                        </div>
+                        <button type="button" onclick="submitCheckoutPayment()" class="w-full text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl active:scale-95 transition transform text-sm tracking-wide mt-2" style="background: var(--g);">
+                            Confirm Payment
+                        </button>
                     </div>
                 </div>
 
-                <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 max-w-md mx-auto z-50 rounded-t-xl">
-                    <button onclick="handleNewVerify()" 
-                            class="w-full bg-[#b71c1c] text-white font-bold py-3 rounded shadow-lg hover:bg-red-800 transition active:scale-95 text-lg tracking-wider">
-                        VERIFY
-                    </button>
+                <!-- FOOTER CREDITS (MATCHING SCRIPT) -->
+                <div class="text-center py-4 text-xs text-gray-400 mt-2">
+                    <p>&copy; 2026 <span id="checkout-footer-sitename">DDS TOPUP</span>.</p>
+                    <a href="https://t.me/@sojib_music" target="_blank" class="text-sky-500 hover:text-sky-700 transition no-underline font-semibold mt-0.5 inline-block">
+                        Developed by SOJIB
+                    </a>
                 </div>
             </div>
         </section>
@@ -1152,16 +1144,31 @@
         </div>
     </aside>
 
-    <!-- FFX FLOATING ACTION SUPPORT MENU (GUARANTEED ICONS) -->
+    <!-- ⚡ FFX FLOATING ACTION SUPPORT MENU (100% VISIBLE BRANDS ICONS) -->
     <div class="fab" id="fab">
         <div class="menu">
-            <a id="fab-menu-tg" href="#" target="_blank">Telegram<span style="background:#0088cc"><i class="fa-brands fa-telegram text-lg text-white"></i></span></a>
-            <a id="fab-menu-grp" href="#" target="_blank">Join Group<span style="background:#2563eb"><i class="fa-solid fa-users text-sm text-white"></i></span></a>
-            <a id="fab-menu-yt" href="#" target="_blank">YouTube<span style="background:#e53935"><i class="fa-brands fa-youtube text-lg text-white"></i></span></a>
+            <a id="fab-menu-tg" href="#" target="_blank">
+                Telegram
+                <span style="background: linear-gradient(135deg, #0088cc, #006699);">
+                    <i class="fa-brands fa-telegram text-lg text-white"></i>
+                </span>
+            </a>
+            <a id="fab-menu-grp" href="#" target="_blank">
+                Join Group
+                <span style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+                    <i class="fa-solid fa-users text-sm text-white"></i>
+                </span>
+            </a>
+            <a id="fab-menu-yt" href="#" target="_blank">
+                YouTube
+                <span style="background: linear-gradient(135deg, #e53935, #b71c1c);">
+                    <i class="fa-brands fa-youtube text-lg text-white"></i>
+                </span>
+            </a>
         </div>
         <button class="fb" id="fb" aria-label="Support" onclick="document.getElementById('fab').classList.toggle('open')">
-            <i class="fa-solid fa-headset h"></i>
-            <i class="fa-solid fa-xmark x"></i>
+            <i class="fa-solid fa-headset h text-white"></i>
+            <i class="fa-solid fa-xmark x text-white"></i>
         </button>
     </div>
 
@@ -1625,9 +1632,10 @@
                     });
                 })(logoUrl);
 
-                document.getElementById('step2-logo').src = logoUrl;
-                document.getElementById('step2-center-logo').src = logoUrl;
-                document.getElementById('pay-site-logo-small').src = logoUrl;
+                const step2Logo = document.getElementById('step2-logo');
+                if (step2Logo) step2Logo.src = logoUrl;
+                const footerSiteName = document.getElementById('checkout-footer-sitename');
+                if (footerSiteName) footerSiteName.innerText = siteName;
                 document.title = siteName;
 
                 if(data.notice) {
@@ -1774,22 +1782,56 @@
             .replace(/^-+|-+$/g, '');
     }
 
+    // ⚡ # ছাড়া সম্পূর্ণ ক্লিন ইউআরএল রাউটার (No Hash / Clean URL)
     function setAppUrlHash(route) {
-        if (!route) return;
-        const targetHash = '#' + route.replace(/^#/, '');
-        if (window.location.hash !== targetHash) {
-            history.pushState(null, '', targetHash);
+        if (!route || route === 'home') {
+            if (window.location.pathname !== '/' || window.location.hash !== '') {
+                history.pushState(null, '', '/');
+            }
+            return;
+        }
+        const cleanPath = '/' + route.replace(/^[#/]+/, '');
+        if (window.location.pathname + window.location.hash !== cleanPath) {
+            history.pushState(null, '', cleanPath);
         }
     }
 
-    function checkAndOpenGameFromHash(hash) {
-        if (!hash || !gamesData) return false;
+    // 🛡️ সেফ ক্লোজ হ্যান্ডলার (পেজ কখনোই রিলোড বা রিফ্রেশ হবে না)
+    function closeTopupModalSafe(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        showSec('home', true);
+    }
+
+    // 🎯 ক্লিন ইউআরএল থেকে নির্দিষ্ট প্যাকেজ অটো-সিলেক্ট করার ফাংশন
+    function autoSelectProductFromUrlHash() {
+        const path = (window.location.pathname.replace(/^\/|\/$/g, '') || window.location.hash.replace(/^#/, '')).toLowerCase().trim();
+        const parts = path.split('/');
+        if (parts.length < 2) return;
+        const targetProdSlug = parts[1];
+
+        setTimeout(() => {
+            const cards = document.querySelectorAll('#products-grid .product-card, #products-grid .glory-card-item');
+            cards.forEach(card => {
+                if (card.dataset.slug && card.dataset.slug.includes(targetProdSlug)) {
+                    card.click();
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }, 150);
+    }
+
+    function checkAndOpenGameFromHash(rawPath) {
+        if (!rawPath || !gamesData) return false;
+        const parts = rawPath.split('/');
+        const gameTarget = parts[0];
         
-        // গেম আইডি বা তৈরি করা স্ল্যাগ মিলিয়ে খোঁজা
         for (let gId in gamesData) {
             const g = gamesData[gId];
             const gSlug = slugifyText(g.name || gId);
-            if (hash === gSlug || hash === gId.toLowerCase()) {
+            if (gameTarget === gSlug || gameTarget === gId.toLowerCase()) {
                 openTopUpPage(g.id, g.name, g.image, false);
                 return true;
             }
@@ -1797,11 +1839,13 @@
         return false;
     }
 
+    // 🚀 ক্লিন পাথ ও পপস্টেট হ্যান্ডলার (# ছাড়াও ব্যাক বাটন ও লিঙ্ক সরাসরি কাজ করবে)
     function handleAppRouting() {
-        const hash = window.location.hash.replace(/^#/, '').toLowerCase().trim();
+        const rawPath = (window.location.pathname.replace(/^\/|\/$/g, '') || window.location.hash.replace(/^#/, '')).toLowerCase().trim();
+        const basePath = rawPath.split('/')[0];
         
         // AI Modal Route
-        if (hash === 'ai' || hash === 'aichat') {
+        if (basePath === 'ai' || basePath === 'aichat') {
             openAiChatModal(false);
             return;
         } else {
@@ -1809,21 +1853,28 @@
         }
 
         // Auth Sub-routes
-        if (hash === 'login') {
+        if (basePath === 'login') {
             showSec('auth', false);
             toggleAuth('login', false);
             return;
-        } else if (hash === 'register' || hash === 'signup') {
+        } else if (basePath === 'register' || basePath === 'signup') {
             showSec('auth', false);
             toggleAuth('register', false);
             return;
-        } else if (hash === 'forgot' || hash === 'forgot-password') {
+        } else if (basePath === 'forgot' || basePath === 'forgot-password') {
             showSec('auth', false);
             toggleAuth('forgot', false);
             return;
-        } else if (hash === 'verify-otp') {
+        } else if (basePath === 'verify-otp') {
             showSec('auth', false);
             toggleAuth('otp', false);
+            return;
+        }
+
+        // Addmoney Pay Step Deep Link
+        if (rawPath === 'addmoney/pay' || rawPath === 'pay' || rawPath === 'payment') {
+            showSec('addmoney', false);
+            goToMethodStep(false);
             return;
         }
 
@@ -1844,19 +1895,21 @@
             'tutorial': 'tutorial'
         };
 
-        if (routeSectionMap[hash]) {
-            showSec(routeSectionMap[hash], false);
-        } else if (hash) {
-            // যদি এটি কোনো নির্দিষ্ট গেমের লিংক হয়
-            const gameOpened = checkAndOpenGameFromHash(hash);
+        if (routeSectionMap[basePath]) {
+            showSec(routeSectionMap[basePath], false);
+        } else if (rawPath) {
+            const gameOpened = checkAndOpenGameFromHash(rawPath);
             if (!gameOpened) {
-                // গেম ডাটা লোড হতে দেরি হলে কিছুক্ষণ পর পুনরায় চেক করবে
-                setTimeout(() => checkAndOpenGameFromHash(hash), 400);
+                setTimeout(() => checkAndOpenGameFromHash(rawPath), 400);
             }
         } else {
             showSec('home', false);
         }
     }
+
+    // ব্রাউজারের ব্যাক/ফরোয়ার্ড বাটনে মসৃণভাবে চলার লিসেনার
+    window.addEventListener('popstate', handleAppRouting);
+    window.addEventListener('hashchange', handleAppRouting);
 
     window.addEventListener('hashchange', handleAppRouting);
     window.addEventListener('DOMContentLoaded', () => {
@@ -2783,10 +2836,15 @@
                     const prod = doc.data();
                     const card = document.createElement('div');
                     
+                    const pSlug = slugifyText(prod.name + '-' + prod.price + 'tk');
+                    const cleanProdName = (prod.name || '').replace(/'/g, "\\'");
+
                     // 🌟 টুরনামেন্ট অ্যাপের মতো গিল্ড গ্লরি বট কার্ড স্টাইল
                     if(selectedGameType === 'guild-glory') {
                         card.className = "glory-card-item";
-                        card.onclick = () => selectProduct(card, prod.name, prod.price, doc.id);
+                        card.dataset.slug = pSlug;
+                        card.dataset.prodId = doc.id;
+                        card.onclick = () => selectProduct(card, cleanProdName, prod.price, doc.id, true);
                         card.innerHTML = `
                             <div class="flex items-center gap-2">
                                 <div class="glory-radio-dot"></div>
@@ -2800,7 +2858,9 @@
                     } else {
                         // সাধারণ ডায়মন্ড কার্ড
                         card.className = "product-card";
-                        card.onclick = () => selectProduct(card, prod.name, prod.price, doc.id);
+                        card.dataset.slug = pSlug;
+                        card.dataset.prodId = doc.id;
+                        card.onclick = () => selectProduct(card, cleanProdName, prod.price, doc.id, true);
                         
                         let stockBadge = "";
                         if(selectedGameType === 'code' || selectedGameType === 'auto-topup') {
@@ -2819,14 +2879,25 @@
                     }
                     grid.appendChild(card);
                 });
+
+                // যদি ইউআরএলে কোনো প্যাকেজ স্ল্যাগ থাকে তবে সেটি অটোমেটিক সিলেক্ট করা
+                autoSelectProductFromUrlHash();
             });
     }
 
-    function selectProduct(element, name, price, id) {
-        document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
-        element.classList.add('selected');
+    function selectProduct(element, name, price, id, updateUrl = true) {
+        document.querySelectorAll('.product-card, .glory-card-item').forEach(el => el.classList.remove('selected'));
+        if (element) element.classList.add('selected');
         selectedProduct = { id: id, name: name, price: parseInt(price) };
-        document.getElementById('total-price').innerText = selectedProduct.price;
+        const priceEl = document.getElementById('total-price');
+        if (priceEl) priceEl.innerText = selectedProduct.price;
+
+        // প্রতিটি প্যাকেজে চাপলে গেম স্ল্যাগ + প্যাকেজ স্ল্যাগ দিয়ে লিংক তৈরি হবে
+        if (updateUrl && selectedGameName) {
+            const gameSlug = slugifyText(selectedGameName);
+            const prodSlug = slugifyText(name + '-' + price + 'tk');
+            setAppUrlHash(`${gameSlug}/${prodSlug}`);
+        }
     }
 
     function selectPaymentOption(option) {
@@ -3422,107 +3493,112 @@
         }, 4000);
     }
 
-    // ============================================
-    // === NEW LOGIC FOR UPDATED ADD MONEY UI ===
-    // ============================================
-
+    // =========================================================================
+    // 💳 CLEAN PHP-STYLE CHECKOUT & PAYMENT CONTROLLER
+    // =========================================================================
     let currentDepositAmount = 0;
-    let currentPaymentMethod = '';
+    let currentPaymentMethod = 'bKash';
+    let adminPaymentNumbers = { bKash: 'Not Available', Nagad: 'Not Available', Rocket: 'Not Available' };
 
-    // Step 1 -> Step 2
-    function goToMethodStep() {
-        const inputVal = document.getElementById('new-amount-input').value;
-        if (!inputVal || inputVal < 10) {
-            return Swal.fire('Error', 'Please enter a valid amount (Min 10 Tk)', 'error');
+    // অ্যাডমিন পেমেন্ট নাম্বার রিয়েল-টাইম লোড
+    function listenAdminPaymentNumbers() {
+        db.collection("admin").doc("payment").onSnapshot(doc => {
+            if (doc.exists) {
+                const d = doc.data();
+                adminPaymentNumbers = {
+                    bKash: d.bKash || 'Not Available',
+                    Nagad: d.Nagad || 'Not Available',
+                    Rocket: d.Rocket || 'Not Available'
+                };
+                updateCheckoutNumberDisplay();
+            }
+        });
+    }
+    listenAdminPaymentNumbers();
+
+    function updateCheckoutNumberDisplay() {
+        const numEl = document.getElementById('checkoutPayNumber');
+        if (numEl) {
+            numEl.innerText = adminPaymentNumbers[currentPaymentMethod] || 'Not Available';
         }
-        currentDepositAmount = parseInt(inputVal);
-        
-        document.getElementById('am-step-1').classList.add('hidden');
-        document.getElementById('am-step-2').classList.remove('hidden');
     }
 
-    // Step 2 -> Step 1 (Back)
+    function goToMethodStep(updateUrl = true) {
+        const inputVal = document.getElementById('new-amount-input').value;
+        if (!inputVal || parseInt(inputVal) < 10) {
+            return Swal.fire('সতর্কতা', 'কমপক্ষে ১০ টাকা লিখুন!', 'warning');
+        }
+        currentDepositAmount = parseInt(inputVal);
+
+        // কার্ডে ইনফো সেট
+        document.getElementById('pay-total-display').innerText = currentDepositAmount;
+        document.getElementById('pay-game-badge').innerText = isDirectBuy ? (selectedGameName || 'Game') : 'Wallet';
+        document.getElementById('pay-pack-badge').innerText = isDirectBuy ? (selectedProduct ? selectedProduct.name : 'Topup') : 'Balance Add Request';
+
+        // ১ম রেডিও মেথড অটো-সিলেক্ট
+        selectCheckoutMethod('bKash');
+        const firstRadio = document.querySelector('input[name="checkout_payment_method"][value="bKash"]');
+        if(firstRadio) firstRadio.checked = true;
+
+        document.getElementById('am-step-1').classList.add('hidden');
+        document.getElementById('am-step-2').classList.remove('hidden');
+
+        // পেমেন্ট স্ক্রিনে আসলে লিংক পরিবর্তিত হবে: /#addmoney/pay
+        if (updateUrl) setAppUrlHash('addmoney/pay');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function backToAmountStep() {
         if (isDirectBuy) {
-            // If in direct buy mode, back goes to TopUp Page
-            document.getElementById('am-step-2').classList.add('hidden');
-            document.getElementById('addmoney-sec').classList.add('hidden'); // Fix: Hide parent section
+            document.getElementById('addmoney-sec').classList.add('hidden');
             document.getElementById('topup-sec').classList.remove('hidden');
             isDirectBuy = false;
+            if (selectedGameName) setAppUrlHash(slugifyText(selectedGameName));
         } else {
             document.getElementById('am-step-2').classList.add('hidden');
             document.getElementById('am-step-1').classList.remove('hidden');
+            setAppUrlHash('addmoney');
         }
     }
 
-    // Step 2 -> Step 3 (Payment Page)
-    function goToPaymentPage(method, themeClass, logoUrl) {
+    function selectCheckoutMethod(method) {
         currentPaymentMethod = method;
-        
-        // Update UI Elements for Payment Page
-        document.getElementById('pay-method-logo').src = logoUrl;
-        document.getElementById('pay-amount-display').innerText = currentDepositAmount;
-        document.getElementById('pay-amount-text').innerText = currentDepositAmount;
-        
-        // Update Method Names in Instruction Text
-        document.querySelectorAll('.method-name').forEach(el => el.innerText = method);
-        
-        // Reset and Apply Theme Color
-        const themeCard = document.getElementById('payment-theme-card');
-        themeCard.className = `rounded-xl shadow-lg overflow-hidden text-white mb-6 relative transition-colors duration-300 ${themeClass}`;
+        const detailsBox = document.getElementById('checkoutDetailsBox');
+        if (detailsBox) detailsBox.classList.remove('hidden');
 
-        // Fetch Number from Admin Panel
-        document.getElementById('pay-admin-number').innerText = "Loading...";
-        db.collection("admin").doc("payment").get().then(doc => {
-            if(doc.exists) {
-                const data = doc.data();
-const keyMap = { bkash: 'bKash', nagad: 'Nagad', rocket: 'Rocket' };
-const fieldKey = keyMap[method.toLowerCase()] || method;
-const num = data[fieldKey] || "Not Available";
-                document.getElementById('pay-admin-number').innerText = num;
-            }
-        });
+        const titleEl = document.getElementById('payMethodSelectedTitle');
+        if (titleEl) titleEl.innerText = method;
 
-        document.getElementById('am-step-2').classList.add('hidden');
-        document.getElementById('am-step-3').classList.remove('hidden');
+        updateCheckoutNumberDisplay();
     }
 
-    // Step 3 -> Step 2 (Back)
-    function backToMethodStep() {
-        document.getElementById('am-step-3').classList.add('hidden');
-        document.getElementById('am-step-2').classList.remove('hidden');
-    }
-
-    // Copy Logic
-    function copyPayNumber() {
-        const num = document.getElementById('pay-admin-number').innerText;
+    function copyCheckoutNumber() {
+        const num = document.getElementById('checkoutPayNumber')?.innerText || '';
+        if (!num || num === 'Loading...' || num === 'Not Available') return;
         navigator.clipboard.writeText(num);
         Swal.fire({
             toast: true,
             icon: 'success',
-            title: 'Number Copied!',
+            title: 'নাম্বার কপি করা হয়েছে!',
             position: 'top',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1300
         });
     }
 
-    // Main Verify Handler
-    function handleNewVerify() {
-        const trxId = document.getElementById('pay-trx-input').value.trim();
-        
+    function submitCheckoutPayment() {
+        const trxId = (document.getElementById('checkout-trx-id')?.value || '').trim();
+        const senderNum = (document.getElementById('checkout-sender-number')?.value || '').trim();
+
         if (!trxId) {
-            return Swal.fire('Required', 'Please enter the Transaction ID.', 'warning');
+            return Swal.fire('সতর্কতা', 'অনুগ্রহ করে Transaction ID (TrxID) লিখুন!', 'warning');
         }
 
         if (isAutoPayEnabled) {
             verifyAutoPayment(trxId, currentDepositAmount);
         } else {
-            if (isDirectBuy) {
-                Swal.fire('Notice', 'Manual verification is not supported for Instant Buy. Please contact support.', 'warning');
-            } else {
-                submitDeposit(trxId, currentDepositAmount);
-            }
+            submitDeposit(trxId, currentDepositAmount, senderNum);
         }
     }
 
